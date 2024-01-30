@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/assets/images/favicon.ico" rel="icon">
+    <title>Pji主机流量统计</title>
+    <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+    <link href="//unpkg.com/layui@2.9.6/dist/css/layui.css" rel="stylesheet">
+</head>
+<body class="layui-padding-3">
+
+<form class="layui-form layui-row layui-col-space16">
+    <div class="layui-col-md4">
+        <div class="layui-input-wrap">
+            <div class="layui-input-prefix">
+                <i class="layui-icon layui-icon-console"></i>
+            </div>
+            <input type="text" name="ip" value="" placeholder="ip+端口" class="layui-input" lay-affix="clear">
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-input-wrap">
+            <select name="direction">
+                <option value="">请选择方向</option>
+                <option value="=>">出网</option>
+                <option value="<=">入网</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="layui-col-md4">
+        <div class="layui-inline">
+            <label class="layui-form-label">时间范围：</label>
+            <div class="layui-inline" id="ID-laydate-rangeLinked">
+                <div class="layui-input-inline">
+                    <input type="text" name="startTime" autocomplete="off" id="ID-laydate-start-date-1" class="layui-input"
+                           placeholder="开始日期">
+                </div>
+                <div class="layui-input-inline">
+                    <div>-</div>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="text" name="endTime" autocomplete="off" id="ID-laydate-end-date-1" class="layui-input"
+                           placeholder="结束日期">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-btn-container layui-col-xs12">
+        <button class="layui-btn" lay-submit lay-filter="demo-table-search">搜索</button>
+        <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+    </div>
+</form>
+<table class="layui-hide" id="ID-table-demo-search"></table>
+
+<!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+<script src="//unpkg.com/layui@2.9.6/dist/layui.js"></script>
+<script>
+    layui.use(function () {
+        var table = layui.table;
+        var form = layui.form;
+        var laydate = layui.laydate;
+        // 创建表格实例
+        table.render({
+            elem: '#ID-table-demo-search',
+            url: '/flask/flow/list', // 此处为静态模拟数据，实际使用时需换成真实接口
+            cols: [[
+                {field: 'ip', title: 'ip+端口', width: 200, fixed: true},
+                {field: 'direction', title: '方向', width: 120},
+                {field: '2s', title: '2s内平均', width: 120, sort: true},
+                {field: '10s', title: '10s内平均', width: 120},
+                {field: '40s', title: '40s内平均', width: 120},
+                {field: 'time', title: '时间', width: 200}
+            ]],
+            page: true,
+            height: 310
+        });
+        // 日期
+        laydate.render({
+            elem: '#ID-laydate-rangeLinked',
+            type: 'datetime',
+            range: ['#ID-laydate-start-date-1', '#ID-laydate-end-date-1'],
+            rangeLinked: true // 开启日期范围选择时的区间联动标注模式 ---  2.8+ 新增
+        });
+        // 搜索提交
+        form.on('submit(demo-table-search)', function (data) {
+            var field = data.field; // 获得表单字段
+            // 执行搜索重载
+            table.reload('ID-table-demo-search', {
+                page: {
+                    curr: 1 // 重新从第 1 页开始
+                },
+                where: field // 搜索的字段
+            });
+            layer.msg('搜索成功');
+            return false; // 阻止默认 form 跳转
+        });
+    });
+</script>
+
+
+</body>
+</html>

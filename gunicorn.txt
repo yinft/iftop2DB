@@ -1,0 +1,1 @@
+gunicorn -D -w 2 --threads 4 -b 0.0.0.0:5556 --access-logfile access.log --error-logfile error.log app:app
