@@ -11,7 +11,7 @@ from config import config
 
 app = Flask(__name__)
 # 环境变量配置
-app.config.from_object(config['pre'])
+app.config.from_object(config['development'])
 connect = MongoClient(app.config['DATABASE_URL'])
 network_interface = app.config['NETWORK_INTERFACE']  # 获取网卡interface
 db = connect.iftop

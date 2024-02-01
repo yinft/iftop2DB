@@ -66,15 +66,15 @@
             elem: '#ID-table-demo-search',
             url: '/flask/flow/list', // 此处为静态模拟数据，实际使用时需换成真实接口
             cols: [[
-                {field: 'ip', title: 'ip+端口', width: 200, fixed: true},
-                {field: 'direction', title: '方向', width: 120},
-                {field: '2s', title: '2s内平均', width: 120, sort: true},
-                {field: '10s', title: '10s内平均', width: 120},
-                {field: '40s', title: '40s内平均', width: 120},
-                {field: 'time', title: '时间', width: 200}
+                {field: 'ip', title: 'ip+端口', fixed: true},
+                {field: 'direction', title: '方向'},
+                {field: '2s', title: '2s内平均'},
+                {field: '10s', title: '10s内平均'},
+                {field: '40s', title: '40s内平均'},
+                {field: 'time', title: '时间'}
             ]],
             page: true,
-            height: 310
+            maxHeight: 600,
         });
         // 日期
         laydate.render({

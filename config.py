@@ -12,7 +12,7 @@ class BaseConfig:  # 基本配置类
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    DATABASE_URL = 'mongodb://root:123456@192.168.100.122:27017/iftop?authSource=admin'
+    DATABASE_URL = 'mongodb://root:123456@192.168.66.243:27017/iftop?authSource=admin'
     NETWORK_INTERFACE = 'en0'
 
 
