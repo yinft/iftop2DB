@@ -32,7 +32,7 @@ class MyThread(Thread):
 def statistics():
     # 运行更新后的 iftop 命令并捕获输出
     while True:
-        process = subprocess.Popen(['sudo', 'iftop', '-i', network_interface, '-P', '-t', '-s', '2', '-L', '10'],
+        process = subprocess.Popen(['sudo', 'iftop', '-i', network_interface, '-P', '-N', '-t', '-s', '2', '-L', '10'],
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, _ = process.communicate()
         content = output.decode()
